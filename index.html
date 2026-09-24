@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mutuals - Mutual Friends App</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f7ff;
+      color: #222;
+    }
+
+    header {
+      background: #5b4bdb;
+      color: white;
+      padding: 18px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 25px;
+    }
+
+    header span {
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 25px;
+    }
+
+    .welcome {
+      background: white;
+      padding: 25px;
+      border-radius: 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .welcome h2 {
+      color: #5b4bdb;
+      margin-bottom: 8px;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    input {
+      flex: 1;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      background: #5b4bdb;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+    }
+
+    .avatar {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      background: #e4e0ff;
+      color: #5b4bdb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 25px;
+      font-weight: bold;
+      margin: auto auto 12px;
+    }
+
+    .card h3 {
+      margin-bottom: 8px;
+    }
+
+    .mutual-section {
+      background: white;
+      padding: 25px;
+      border-radius: 18px;
+      margin-top: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .mutual-count {
+      font-size: 28px;
+      font-weight: bold;
+      color: #5b4bdb;
+      margin: 10px 0;
+    }
+
+    .mutual-list {
+      margin-top: 15px;
+    }
+
+    .mutual-person {
+      padding: 12px;
+      background: #f1f0ff;
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    nav button {
+      background: white;
+      color: #5b4bdb;
+      border: 1px solid #5b4bdb;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #777;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px;
+      }
+
+      .search-box {
+        flex-direction: column;
+      }
+
+      .search-box button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🤝 Mutuals</h1>
+    <span>Mutual Friends App</span>
+  </header>
+
+  <div class="container">
+
+    <nav>
+      <button onclick="showSection('home')">Home</button>
+      <button onclick="showSection('friends')">Friends</button>
+      <button onclick="showSection('mutuals')">Mutuals</button>
+    </nav>
+
+    <!-- HOME -->
+    <section id="home">
+
+      <div class="welcome">
+        <h2>Welcome to Mutuals 👋</h2>
+        <p>Find common friends between users easily.</p>
+      </div>
+
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search user by name..."
+        >
+        <button onclick="searchUser()">Search</button>
+      </div>
+
+      <div id="searchResults" class="cards"></div>
+
+      <h2 style="margin-top:25px;">Suggested Users</h2>
+
+      <div class="cards">
+
+        <div class="card">
+          <div class="avatar">P</div>
+          <h3>Pranali</h3>
+          <p>3 Friends</p>
+        </div>
+
+        <div class="card">
+          <div class="avatar">R</div>
+          <h3>Riya</h3>
+          <p>3 Friends</p>
+        </div>
+
+        <div class="card">
+          <div class="avatar">S</div>
+          <h3>Sahil</h3>
+          <p>2 Friends</p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- FRIENDS -->
+    <section id="friends" class="hidden">
+
+      <div class="welcome">
+        <h2>👥 My Friends</h2>
+        <p>Your current connections</p>
+      </div>
+
+      <div class="cards">
+
+        <div class="card">
+          <div class="avatar">S</div>
+          <h3>Sahil</h3>
+          <p>Friend</p>
+        </div>
+
+        <div class="card">
+          <div class="avatar">N</div>
+          <h3>Neha</h3>
+          <p>Friend</p>
+        </div>
+
+        <div class="card">
+          <div class="avatar">A</div>
+          <h3>Amit</h3>
+          <p>Friend</p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- MUTUALS -->
+    <section id="mutuals" class="hidden">
+
+      <div class="mutual-section">
+
+        <h2>🤝 Mutual Friends</h2>
+
+        <p style="margin-top:10px;">
+          Pranali & Riya
+        </p>
+
+        <div class="mutual-count">
+          2 Mutual Friends
+        </div>
+
+        <div class="mutual-list">
+
+          <div class="mutual-person">
+            👤 Neha
+          </div>
+
+          <div class="mutual-person">
+            👤 Amit
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <footer>
+    © 2026 Mutuals | College Project
+  </footer>
+
+  <script>
+
+    const users = [
+      {
+        name: "Pranali",
+        friends: ["Sahil", "Neha", "Amit"]
+      },
+      {
+        name: "Riya",
+        friends: ["Neha", "Amit", "Pooja"]
+      },
+      {
+        name: "Sahil",
+        friends: ["Pranali", "Neha"]
+      },
+      {
+        name: "Neha",
+        friends: ["Pranali", "Riya", "Sahil"]
+      }
+    ];
+
+    function showSection(sectionName) {
+
+      document.getElementById("home").classList.add("hidden");
+      document.getElementById("friends").classList.add("hidden");
+      document.getElementById("mutuals").classList.add("hidden");
+
+      document.getElementById(sectionName).classList.remove("hidden");
+    }
+
+    function searchUser() {
+
+      const searchText =
+        document.getElementById("searchInput").value
+        .toLowerCase()
+        .trim();
+
+      const results =
+        document.getElementById("searchResults");
+
+      results.innerHTML = "";
+
+      if (searchText === "") {
+        results.innerHTML =
+          "<p>Please enter a user name.</p>";
+        return;
+      }
+
+      const foundUsers = users.filter(user =>
+        user.name.toLowerCase().includes(searchText)
+      );
+
+      if (foundUsers.length === 0) {
+        results.innerHTML =
+          "<p>No user found.</p>";
+        return;
+      }
+
+      foundUsers.forEach(user => {
+
+        results.innerHTML += `
+          <div class="card">
+            <div class="avatar">
+              ${user.name.charAt(0)}
+            </div>
+
+            <h3>${user.name}</h3>
+
+            <p>${user.friends.length} Friends</p>
+
+            <br>
+
+            <button onclick="viewMutuals('${user.name}')">
+              View Mutuals
+            </button>
+          </div>
+        `;
+
+      });
+    }
+
+    function viewMutuals(userName) {
+
+      showSection("mutuals");
+
+      const user1 = users.find(
+        user => user.name === "Pranali"
+      );
+
+      const user2 = users.find(
+        user => user.name === userName
+      );
+
+      if (!user1 || !user2) return;
+
+      const mutualFriends =
+        user1.friends.filter(friend =>
+          user2.friends.includes(friend)
+        );
+
+      document.querySelector(".mutual-section").innerHTML = `
+
+        <h2>🤝 Mutual Friends</h2>
+
+        <p style="margin-top:10px;">
+          Pranali & ${userName}
+        </p>
+
+        <div class="mutual-count">
+          ${mutualFriends.length} Mutual Friends
+        </div>
+
+        <div class="mutual-list">
+
+          ${
+            mutualFriends.length > 0
+            ? mutualFriends.map(friend =>
+                `<div class="mutual-person">
+                  👤 ${friend}
+                </div>`
+              ).join("")
+            : "<p>No mutual friends found.</p>"
+          }
+
+        </div>
+      `;
+    }
+
+  </script>
+
+</body>
+  </html>
