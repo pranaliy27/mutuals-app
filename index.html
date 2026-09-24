@@ -1,444 +1,542 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mutuals - Mutual Friends App</title>
 
-  <title>Mutuals - Mutual Friends App</title>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+body {
+  background: #f5f7ff;
+  color: #222;
+}
 
-    body {
-      background: #f5f7ff;
-      color: #222;
-    }
+header {
+  background: #5b4bdb;
+  color: white;
+  padding: 18px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    header {
-      background: #5b4bdb;
-      color: white;
-      padding: 18px 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+header h1 {
+  font-size: 25px;
+}
 
-    header h1 {
-      font-size: 25px;
-    }
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 25px;
+}
 
-    header span {
-      font-size: 14px;
-    }
+button {
+  background: #5b4bdb;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+}
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 25px;
-    }
+input {
+  width: 100%;
+  padding: 13px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 15px;
+}
 
-    .welcome {
-      background: white;
-      padding: 25px;
-      border-radius: 18px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    }
+.card,
+.box {
+  background: white;
+  padding: 25px;
+  border-radius: 18px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
 
-    .welcome h2 {
-      color: #5b4bdb;
-      margin-bottom: 8px;
-    }
+.login-box {
+  max-width: 400px;
+  margin: 70px auto;
+}
 
-    .search-box {
-      display: flex;
-      gap: 10px;
-      margin: 20px 0;
-    }
+.login-box h2 {
+  color: #5b4bdb;
+  margin-bottom: 15px;
+}
 
-    input {
-      flex: 1;
-      padding: 14px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      font-size: 16px;
-    }
+.login-box button {
+  width: 100%;
+  margin-top: 10px;
+}
 
-    button {
-      background: #5b4bdb;
-      color: white;
-      border: none;
-      padding: 12px 18px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 15px;
-    }
+.link {
+  color: #5b4bdb;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 15px;
+}
 
-    button:hover {
-      opacity: 0.9;
-    }
+nav {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 15px;
-      margin-top: 20px;
-    }
+nav button {
+  background: white;
+  color: #5b4bdb;
+  border: 1px solid #5b4bdb;
+}
 
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 16px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
-    }
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+}
 
-    .avatar {
-      width: 65px;
-      height: 65px;
-      border-radius: 50%;
-      background: #e4e0ff;
-      color: #5b4bdb;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 25px;
-      font-weight: bold;
-      margin: auto auto 12px;
-    }
+.avatar {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background: #e4e0ff;
+  color: #5b4bdb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  font-weight: bold;
+  margin: auto auto 12px;
+}
 
-    .card h3 {
-      margin-bottom: 8px;
-    }
+.user-card {
+  text-align: center;
+}
 
-    .mutual-section {
-      background: white;
-      padding: 25px;
-      border-radius: 18px;
-      margin-top: 25px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    }
+.mutual-count {
+  font-size: 28px;
+  font-weight: bold;
+  color: #5b4bdb;
+  margin: 15px 0;
+}
 
-    .mutual-count {
-      font-size: 28px;
-      font-weight: bold;
-      color: #5b4bdb;
-      margin: 10px 0;
-    }
+.mutual-person {
+  background: #f1f0ff;
+  padding: 12px;
+  border-radius: 10px;
+  margin: 8px 0;
+}
 
-    .mutual-list {
-      margin-top: 15px;
-    }
+.hidden {
+  display: none;
+}
 
-    .mutual-person {
-      padding: 12px;
-      background: #f1f0ff;
-      border-radius: 10px;
-      margin-bottom: 8px;
-    }
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #777;
+}
 
-    nav {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
+.logout {
+  background: #e74c3c;
+}
 
-    nav button {
-      background: white;
-      color: #5b4bdb;
-      border: 1px solid #5b4bdb;
-    }
+@media(max-width:600px) {
+  .container {
+    padding: 15px;
+  }
 
-    .hidden {
-      display: none;
-    }
-
-    footer {
-      text-align: center;
-      padding: 25px;
-      color: #777;
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        padding: 15px;
-      }
-
-      .search-box {
-        flex-direction: column;
-      }
-
-      .search-box button {
-        width: 100%;
-      }
-    }
-  </style>
+  header {
+    padding: 15px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <h1>🤝 Mutuals</h1>
-    <span>Mutual Friends App</span>
-  </header>
+<!-- LOGIN -->
+<section id="loginPage">
+  <div class="login-box box">
+    <h2>🤝 Welcome to Mutuals</h2>
+    <p>Login to find your mutual friends.</p>
 
-  <div class="container">
+    <input type="email" id="loginEmail" placeholder="Email">
+    <input type="password" id="loginPassword" placeholder="Password">
 
-    <nav>
-      <button onclick="showSection('home')">Home</button>
-      <button onclick="showSection('friends')">Friends</button>
-      <button onclick="showSection('mutuals')">Mutuals</button>
-    </nav>
+    <button onclick="login()">Login</button>
 
-    <!-- HOME -->
-    <section id="home">
-
-      <div class="welcome">
-        <h2>Welcome to Mutuals 👋</h2>
-        <p>Find common friends between users easily.</p>
-      </div>
-
-      <div class="search-box">
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="Search user by name..."
-        >
-        <button onclick="searchUser()">Search</button>
-      </div>
-
-      <div id="searchResults" class="cards"></div>
-
-      <h2 style="margin-top:25px;">Suggested Users</h2>
-
-      <div class="cards">
-
-        <div class="card">
-          <div class="avatar">P</div>
-          <h3>Pranali</h3>
-          <p>3 Friends</p>
-        </div>
-
-        <div class="card">
-          <div class="avatar">R</div>
-          <h3>Riya</h3>
-          <p>3 Friends</p>
-        </div>
-
-        <div class="card">
-          <div class="avatar">S</div>
-          <h3>Sahil</h3>
-          <p>2 Friends</p>
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- FRIENDS -->
-    <section id="friends" class="hidden">
-
-      <div class="welcome">
-        <h2>👥 My Friends</h2>
-        <p>Your current connections</p>
-      </div>
-
-      <div class="cards">
-
-        <div class="card">
-          <div class="avatar">S</div>
-          <h3>Sahil</h3>
-          <p>Friend</p>
-        </div>
-
-        <div class="card">
-          <div class="avatar">N</div>
-          <h3>Neha</h3>
-          <p>Friend</p>
-        </div>
-
-        <div class="card">
-          <div class="avatar">A</div>
-          <h3>Amit</h3>
-          <p>Friend</p>
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- MUTUALS -->
-    <section id="mutuals" class="hidden">
-
-      <div class="mutual-section">
-
-        <h2>🤝 Mutual Friends</h2>
-
-        <p style="margin-top:10px;">
-          Pranali & Riya
-        </p>
-
-        <div class="mutual-count">
-          2 Mutual Friends
-        </div>
-
-        <div class="mutual-list">
-
-          <div class="mutual-person">
-            👤 Neha
-          </div>
-
-          <div class="mutual-person">
-            👤 Amit
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
+    <p class="link" onclick="showSignup()">Create a new account</p>
   </div>
+</section>
 
-  <footer>
-    © 2026 Mutuals | College Project
-  </footer>
+<!-- SIGNUP -->
+<section id="signupPage" class="hidden">
+  <div class="login-box box">
+    <h2>📝 Create Account</h2>
 
-  <script>
+    <input type="text" id="signupName" placeholder="Full Name">
+    <input type="email" id="signupEmail" placeholder="Email">
+    <input type="password" id="signupPassword" placeholder="Password">
 
-    const users = [
-      {
-        name: "Pranali",
-        friends: ["Sahil", "Neha", "Amit"]
-      },
-      {
-        name: "Riya",
-        friends: ["Neha", "Amit", "Pooja"]
-      },
-      {
-        name: "Sahil",
-        friends: ["Pranali", "Neha"]
-      },
-      {
-        name: "Neha",
-        friends: ["Pranali", "Riya", "Sahil"]
-      }
-    ];
+    <button onclick="signup()">Sign Up</button>
 
-    function showSection(sectionName) {
+    <p class="link" onclick="showLogin()">Already have an account? Login</p>
+  </div>
+</section>
 
-      document.getElementById("home").classList.add("hidden");
-      document.getElementById("friends").classList.add("hidden");
-      document.getElementById("mutuals").classList.add("hidden");
+<!-- APP -->
+<section id="appPage" class="hidden">
 
-      document.getElementById(sectionName).classList.remove("hidden");
-    }
+<header>
+  <h1>🤝 Mutuals</h1>
+  <span>Mutual Friends App</span>
+</header>
 
-    function searchUser() {
+<div class="container">
 
-      const searchText =
-        document.getElementById("searchInput").value
-        .toLowerCase()
-        .trim();
+<nav>
+  <button onclick="showSection('home')">🏠 Home</button>
+  <button onclick="showSection('friends')">👥 Friends</button>
+  <button onclick="showSection('mutuals')">🤝 Mutuals</button>
+  <button onclick="showSection('profile')">👤 Profile</button>
+  <button class="logout" onclick="logout()">Logout</button>
+</nav>
 
-      const results =
-        document.getElementById("searchResults");
+<!-- HOME -->
+<section id="home">
 
-      results.innerHTML = "";
+<div class="box">
+  <h2>Welcome to Mutuals 👋</h2>
+  <p>Find common friends between users easily.</p>
+</div>
 
-      if (searchText === "") {
-        results.innerHTML =
-          "<p>Please enter a user name.</p>";
-        return;
-      }
+<div class="box">
+  <h2>🔎 Search User</h2>
 
-      const foundUsers = users.filter(user =>
-        user.name.toLowerCase().includes(searchText)
-      );
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Search user by name..."
+  >
 
-      if (foundUsers.length === 0) {
-        results.innerHTML =
-          "<p>No user found.</p>";
-        return;
-      }
+  <button onclick="searchUser()">Search</button>
 
-      foundUsers.forEach(user => {
+  <div id="searchResults" class="cards" style="margin-top:20px;"></div>
+</div>
 
-        results.innerHTML += `
-          <div class="card">
-            <div class="avatar">
-              ${user.name.charAt(0)}
-            </div>
+<h2>Suggested Users</h2>
 
-            <h3>${user.name}</h3>
+<div class="cards" style="margin-top:15px;">
 
-            <p>${user.friends.length} Friends</p>
+<div class="card user-card">
+  <div class="avatar">P</div>
+  <h3>Pranali</h3>
+  <p>3 Friends</p>
+</div>
 
-            <br>
+<div class="card user-card">
+  <div class="avatar">R</div>
+  <h3>Riya</h3>
+  <p>3 Friends</p>
+</div>
 
-            <button onclick="viewMutuals('${user.name}')">
-              View Mutuals
-            </button>
-          </div>
-        `;
+<div class="card user-card">
+  <div class="avatar">S</div>
+  <h3>Sahil</h3>
+  <p>2 Friends</p>
+</div>
 
-      });
-    }
+</div>
 
-    function viewMutuals(userName) {
+</section>
 
-      showSection("mutuals");
+<!-- FRIENDS -->
+<section id="friends" class="hidden">
 
-      const user1 = users.find(
-        user => user.name === "Pranali"
-      );
+<div class="box">
+  <h2>👥 My Friends</h2>
+  <p>Your current connections.</p>
+</div>
 
-      const user2 = users.find(
-        user => user.name === userName
-      );
+<div class="cards">
 
-      if (!user1 || !user2) return;
+<div class="card user-card">
+  <div class="avatar">S</div>
+  <h3>Sahil</h3>
+  <p>Friend</p>
+</div>
 
-      const mutualFriends =
-        user1.friends.filter(friend =>
-          user2.friends.includes(friend)
-        );
+<div class="card user-card">
+  <div class="avatar">N</div>
+  <h3>Neha</h3>
+  <p>Friend</p>
+</div>
 
-      document.querySelector(".mutual-section").innerHTML = `
+<div class="card user-card">
+  <div class="avatar">A</div>
+  <h3>Amit</h3>
+  <p>Friend</p>
+</div>
 
-        <h2>🤝 Mutual Friends</h2>
+</div>
 
-        <p style="margin-top:10px;">
-          Pranali & ${userName}
-        </p>
+</section>
 
-        <div class="mutual-count">
-          ${mutualFriends.length} Mutual Friends
+<!-- MUTUALS -->
+<section id="mutuals" class="hidden">
+
+<div class="box">
+
+<h2>🤝 Mutual Friends</h2>
+
+<p style="margin-top:10px;">
+Pranali & Riya
+</p>
+
+<div class="mutual-count">
+2 Mutual Friends
+</div>
+
+<div class="mutual-person">
+👤 Neha
+</div>
+
+<div class="mutual-person">
+👤 Amit
+</div>
+
+</div>
+
+</section>
+
+<!-- PROFILE -->
+<section id="profile" class="hidden">
+
+<div class="box" style="text-align:center;">
+
+<div class="avatar" id="profileAvatar">P</div>
+
+<h2 id="profileName">Pranali</h2>
+
+<p id="profileEmail">student@example.com</p>
+
+<p style="margin-top:15px;">
+🎓 BSc Data Science Student
+</p>
+
+</div>
+
+</section>
+
+</div>
+
+<footer>
+© 2026 Mutuals | College Project
+</footer>
+
+</section>
+
+<script>
+
+const users = [
+  {
+    name: "Pranali",
+    friends: ["Sahil", "Neha", "Amit"]
+  },
+  {
+    name: "Riya",
+    friends: ["Neha", "Amit", "Pooja"]
+  },
+  {
+    name: "Sahil",
+    friends: ["Pranali", "Neha"]
+  },
+  {
+    name: "Neha",
+    friends: ["Pranali", "Riya", "Sahil"]
+  }
+];
+
+function showSignup() {
+  document.getElementById("loginPage").classList.add("hidden");
+  document.getElementById("signupPage").classList.remove("hidden");
+}
+
+function showLogin() {
+  document.getElementById("signupPage").classList.add("hidden");
+  document.getElementById("loginPage").classList.remove("hidden");
+}
+
+function signup() {
+
+  const name = document.getElementById("signupName").value;
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
+
+  if(name === "" || email === "" || password === "") {
+    alert("Please fill all fields.");
+    return;
+  }
+
+  alert("Account created successfully!");
+
+  document.getElementById("profileName").innerText = name;
+  document.getElementById("profileEmail").innerText = email;
+  document.getElementById("profileAvatar").innerText =
+    name.charAt(0).toUpperCase();
+
+  document.getElementById("signupPage").classList.add("hidden");
+  document.getElementById("appPage").classList.remove("hidden");
+}
+
+function login() {
+
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  if(email === "" || password === "") {
+    alert("Please enter email and password.");
+    return;
+  }
+
+  document.getElementById("loginPage").classList.add("hidden");
+  document.getElementById("appPage").classList.remove("hidden");
+}
+
+function logout() {
+
+  document.getElementById("appPage").classList.add("hidden");
+  document.getElementById("loginPage").classList.remove("hidden");
+
+}
+
+function showSection(sectionName) {
+
+  const sections = ["home","friends","mutuals","profile"];
+
+  sections.forEach(section => {
+    document.getElementById(section)
+      .classList.add("hidden");
+  });
+
+  document.getElementById(sectionName)
+    .classList.remove("hidden");
+}
+
+function searchUser() {
+
+  const searchText =
+    document.getElementById("searchInput")
+    .value
+    .toLowerCase()
+    .trim();
+
+  const results =
+    document.getElementById("searchResults");
+
+  results.innerHTML = "";
+
+  if(searchText === "") {
+    results.innerHTML =
+      "<p>Please enter a user name.</p>";
+    return;
+  }
+
+  const foundUsers = users.filter(user =>
+    user.name.toLowerCase().includes(searchText)
+  );
+
+  if(foundUsers.length === 0) {
+    results.innerHTML =
+      "<p>No user found.</p>";
+    return;
+  }
+
+  foundUsers.forEach(user => {
+
+    results.innerHTML += `
+      <div class="card user-card">
+
+        <div class="avatar">
+          ${user.name.charAt(0)}
         </div>
 
-        <div class="mutual-list">
+        <h3>${user.name}</h3>
 
-          ${
-            mutualFriends.length > 0
-            ? mutualFriends.map(friend =>
-                `<div class="mutual-person">
-                  👤 ${friend}
-                </div>`
-              ).join("")
-            : "<p>No mutual friends found.</p>"
-          }
+        <p>${user.friends.length} Friends</p>
 
-        </div>
-      `;
-    }
+        <br>
 
-  </script>
+        <button onclick="viewMutuals('${user.name}')">
+          View Mutuals
+        </button>
+
+      </div>
+    `;
+
+  });
+}
+
+function viewMutuals(userName) {
+
+  showSection("mutuals");
+
+  const user1 = users.find(
+    user => user.name === "Pranali"
+  );
+
+  const user2 = users.find(
+    user => user.name === userName
+  );
+
+  if(!user1 || !user2) return;
+
+  const mutualFriends =
+    user1.friends.filter(friend =>
+      user2.friends.includes(friend)
+    );
+
+  document.getElementById("mutuals").innerHTML = `
+
+    <div class="box">
+
+      <h2>🤝 Mutual Friends</h2>
+
+      <p style="margin-top:10px;">
+        Pranali & ${userName}
+      </p>
+
+      <div class="mutual-count">
+        ${mutualFriends.length} Mutual Friends
+      </div>
+
+      ${
+        mutualFriends.length > 0
+        ? mutualFriends.map(friend =>
+          `<div class="mutual-person">
+            👤 ${friend}
+          </div>`
+        ).join("")
+        : "<p>No mutual friends found.</p>"
+      }
+
+    </div>
+  `;
+}
+
+</script>
 
 </body>
-  </html>
+</html>
