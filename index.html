@@ -296,6 +296,36 @@ footer {
 <h2 id="profileName">Sahil</h2>
 
 <p id="profileEmail">sahil@mutuals.app</p>
+
+  <div style="text-align:center; margin-top:20px;">
+  <button onclick="document.getElementById('newFriends').classList.toggle('hidden')">
+    ➕ Add Friend
+  </button>
+</div>
+
+<div id="newFriends" class="hidden box" style="margin-top:20px;">
+  <h3>👥 People You May Know</h3>
+
+  <div class="cards" style="margin-top:15px;">
+
+    <div class="card user-card">
+      <div class="avatar">R</div>
+      <h3>Riya</h3>
+      <button onclick="alert('Friend request sent to Riya!')">
+        ➕ Add
+      </button>
+    </div>
+
+    <div class="card user-card">
+      <div class="avatar">P</div>
+      <h3>Pooja</h3>
+      <button onclick="alert('Friend request sent to Pooja!')">
+        ➕ Add
+      </button>
+    </div>
+
+  </div>
+</div>
 </section>
 
 <!-- MUTUALS -->
