@@ -3,574 +3,1360 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mutuals - Mutual Friends App</title>
+
+<title>Mutuals - Mutual Fund App</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
 }
 
-body {
-  background: #f5f7ff;
-  color: #222;
+body{
+  background:#f5f7ff;
+  color:#222;
 }
 
-header {
-  background: #5b4bdb;
-  color: white;
-  padding: 18px 25px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+header{
+  background:#5b4bdb;
+  color:white;
+  padding:18px;
+  text-align:center;
 }
 
-header h1 {
-  font-size: 25px;
+header h1{
+  font-size:25px;
 }
 
-.container {
-  max-width: 900px;
-  margin: auto;
-  padding: 25px;
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:18px;
 }
 
-button {
-  background: #5b4bdb;
-  color: white;
-  border: none;
-  padding: 12px 18px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 15px;
+nav{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
 }
 
-input {
-  width: 100%;
-  padding: 13px;
-  margin: 8px 0;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font-size: 15px;
+nav button{
+  background:white;
+  color:#5b4bdb;
+  border:1px solid #5b4bdb;
+  padding:10px 13px;
+  border-radius:9px;
+  cursor:pointer;
 }
 
-.card,
-.box {
-  background: white;
-  padding: 25px;
-  border-radius: 18px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+nav button:hover{
+  background:#5b4bdb;
+  color:white;
 }
 
-.login-box {
-  max-width: 400px;
-  margin: 70px auto;
+.box{
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  margin-bottom:18px;
+  box-shadow:0 3px 12px rgba(0,0,0,0.08);
 }
 
-.login-box h2 {
-  color: #5b4bdb;
-  margin-bottom: 15px;
+input,select{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border:1px solid #ddd;
+  border-radius:9px;
+  font-size:15px;
 }
 
-.login-box button {
-  width: 100%;
-  margin-top: 10px;
+button{
+  background:#5b4bdb;
+  color:white;
+  border:none;
+  padding:11px 16px;
+  border-radius:9px;
+  cursor:pointer;
+  font-size:14px;
 }
 
-.link {
-  color: #5b4bdb;
-  cursor: pointer;
-  text-align: center;
-  margin-top: 15px;
+button:hover{
+  opacity:.9;
 }
 
-nav {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
+.hidden{
+  display:none;
 }
 
-nav button {
-  background: white;
-  color: #5b4bdb;
-  border: 1px solid #5b4bdb;
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
 }
 
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 15px;
+.card{
+  background:white;
+  padding:18px;
+  border-radius:14px;
+  box-shadow:0 3px 10px rgba(0,0,0,.08);
 }
 
-.avatar {
-  width: 65px;
-  height: 65px;
-  border-radius: 50%;
-  background: #e4e0ff;
-  color: #5b4bdb;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 25px;
-  font-weight: bold;
-  margin: auto auto 12px;
+.card h3{
+  color:#5b4bdb;
+  margin-bottom:8px;
 }
 
-.user-card {
-  text-align: center;
+.stat{
+  font-size:24px;
+  font-weight:bold;
+  color:#5b4bdb;
+  margin-top:8px;
 }
 
-.mutual-count {
-  font-size: 28px;
-  font-weight: bold;
-  color: #5b4bdb;
-  margin: 15px 0;
+.fund-name{
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:10px;
 }
 
-.mutual-person {
-  background: #f1f0ff;
-  padding: 12px;
-  border-radius: 10px;
-  margin: 8px 0;
+.tag{
+  display:inline-block;
+  background:#eeeaff;
+  color:#5b4bdb;
+  padding:5px 9px;
+  border-radius:15px;
+  font-size:12px;
+  margin:3px;
 }
 
-.hidden {
-  display: none;
+.result{
+  margin-top:15px;
+  padding:15px;
+  background:#f1f0ff;
+  border-radius:10px;
 }
 
-footer {
-  text-align: center;
-  padding: 25px;
-  color: #777;
+.login-box{
+  max-width:400px;
+  margin:80px auto;
+  padding:25px;
+  background:white;
+  border-radius:15px;
+  box-shadow:0 4px 15px rgba(0,0,0,.1);
 }
 
-.logout {
-  background: #e74c3c;
+.login-box h2{
+  color:#5b4bdb;
+  margin-bottom:15px;
 }
 
-@media(max-width:600px) {
-  .container {
-    padding: 15px;
+.login-box button{
+  width:100%;
+  margin-top:10px;
+}
+
+.link{
+  color:#5b4bdb;
+  text-align:center;
+  margin-top:15px;
+  cursor:pointer;
+}
+
+.big-number{
+  font-size:30px;
+  font-weight:bold;
+  color:#5b4bdb;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:15px;
+}
+
+th,td{
+  border:1px solid #ddd;
+  padding:10px;
+  text-align:left;
+}
+
+th{
+  background:#eeeaff;
+}
+
+footer{
+  text-align:center;
+  padding:25px;
+  color:#777;
+}
+
+@media(max-width:600px){
+
+  .container{
+    padding:12px;
   }
 
-  header {
-    padding: 15px;
+  nav button{
+    flex:1 1 45%;
   }
+
+  .cards{
+    grid-template-columns:1fr;
+  }
+
+  table{
+    font-size:13px;
+  }
+
 }
+
 </style>
 </head>
 
 <body>
 
 <!-- LOGIN -->
+
 <section id="loginPage">
-  <div class="login-box box">
-    <h2>🤝 Welcome to Mutuals</h2>
-    <p>Login to find your mutual friends.</p>
 
-    <input type="email" id="loginEmail" placeholder="Email">
-    <input type="password" id="loginPassword" placeholder="Password">
+<div class="login-box">
 
-    <button onclick="login()">Login</button>
+<h2>📊 Mutuals</h2>
 
-    <p class="link" onclick="showSignup()">Create a new account</p>
-  </div>
+<p>Mutual Fund Analysis & Investment App</p>
+
+<input type="email" id="loginEmail" placeholder="Email">
+
+<input type="password" id="loginPassword" placeholder="Password">
+
+<button onclick="login()">Login</button>
+
+<p class="link" onclick="showSignup()">
+Create New Account
+</p>
+
+</div>
+
 </section>
+
 
 <!-- SIGNUP -->
+
 <section id="signupPage" class="hidden">
-  <div class="login-box box">
-    <h2>📝 Create Account</h2>
 
-    <input type="text" id="signupName" placeholder="Full Name">
-    <input type="email" id="signupEmail" placeholder="Email">
-    <input type="password" id="signupPassword" placeholder="Password">
+<div class="login-box">
 
-    <button onclick="signup()">Sign Up</button>
+<h2>📝 Create Account</h2>
 
-    <p class="link" onclick="showLogin()">Already have an account? Login</p>
-  </div>
+<input type="text" id="signupName" placeholder="Full Name">
+
+<input type="email" id="signupEmail" placeholder="Email">
+
+<input type="password" id="signupPassword" placeholder="Password">
+
+<button onclick="signup()">Sign Up</button>
+
+<p class="link" onclick="showLogin()">
+Already have an account? Login
+</p>
+
+</div>
+
 </section>
 
-<!-- APP -->
+
+<!-- MAIN APP -->
+
 <section id="appPage" class="hidden">
 
 <header>
-  <h1>🤝 Mutuals</h1>
-  <span>Mutual Friends App</span>
+
+<h1>📊 Mutuals</h1>
+
+<p>Mutual Fund Mobile Application</p>
+
 </header>
+
 
 <div class="container">
 
 <nav>
-  <button onclick="showSection('home')">🏠 Home</button>
-  <button onclick="showSection('friends')">👥 Friends</button>
-  <button onclick="showSection('mutuals')">🤝 Mutuals</button>
-  <button onclick="showSection('profile')">👤 Profile</button>
-  <button class="logout" onclick="logout()">Logout</button>
+
+<button onclick="showSection('home')">🏠 Home</button>
+
+<button onclick="showSection('search')">🔎 Search</button>
+
+<button onclick="showSection('compare')">⚖️ Compare</button>
+
+<button onclick="showSection('sip')">🧮 SIP</button>
+
+<button onclick="showSection('lumpsum')">💰 Lumpsum</button>
+
+<button onclick="showSection('recommend')">💡 Recommend</button>
+
+<button onclick="showSection('analytics')">📊 Analytics</button>
+
+<button onclick="showSection('profile')">👤 Profile</button>
+
+<button onclick="logout()">Logout</button>
+
 </nav>
 
+
 <!-- HOME -->
+
 <section id="home">
 
 <div class="box">
-  <h2>Welcome to Mutuals 👋</h2>
-  <p>Find common friends between users easily.</p>
-</div>
 
-<div class="box">
-  <h2>🔎 Search User</h2>
+<h2>Welcome to Mutuals 👋</h2>
 
-  <input
-    type="text"
-    id="searchInput"
-    placeholder="Search user by name..."
-  >
-
-  <button onclick="searchUser()">Search</button>
-
-  <div id="searchResults" class="cards" style="margin-top:20px;"></div>
-</div>
-
-<h2>Suggested Users</h2>
-
-<div class="cards" style="margin-top:15px;">
-
-<div class="card user-card">
-  <div class="avatar">P</div>
-  <h3>Pranali</h3>
-  <p>3 Friends</p>
-</div>
-
-<div class="card user-card">
-  <div class="avatar">R</div>
-  <h3>Riya</h3>
-  <p>3 Friends</p>
-</div>
-
-<div class="card user-card">
-  <div class="avatar">S</div>
-  <h3>Sahil</h3>
-  <p>2 Friends</p>
-</div>
+<p style="margin-top:10px;">
+Explore mutual funds, compare funds and calculate your investments.
+</p>
 
 </div>
 
-</section>
-
-<!-- FRIENDS -->
-<section id="friends" class="hidden">
-
-<div class="box">
-  <h2>👥 My Friends</h2>
-  <p>Your current connections.</p>
-</div>
 
 <div class="cards">
 
-<div class="card user-card">
-  <div class="avatar">S</div>
-  <h3>Sahil</h3>
-  <p>Friend</p>
-</div>
+<div class="card">
 
-<div class="card user-card">
-  <div class="avatar">N</div>
-  <h3>Neha</h3>
-  <p>Friend</p>
-</div>
+<h3>📊 Total Funds</h3>
 
-<div class="card user-card">
-  <div class="avatar">A</div>
-  <h3>Amit</h3>
-  <p>Friend</p>
-</div>
+<div class="stat">8</div>
+
+<p>Sample funds available</p>
 
 </div>
-<div class="avatar" id="profileAvatar">S</div>
 
-<h2 id="profileName">Sahil</h2>
 
-<p id="profileEmail">sahil@mutuals.app</p>
+<div class="card">
 
-  <div style="text-align:center; margin-top:20px;">
-  <button onclick="document.getElementById('newFriends').classList.toggle('hidden')">
-    ➕ Add Friend
-  </button>
+<h3>📈 Average Return</h3>
+
+<div class="stat">14.2%</div>
+
+<p>Sample 3-year return</p>
+
 </div>
 
-<div id="newFriends" class="hidden box" style="margin-top:20px;">
-  <h3>👥 People You May Know</h3>
 
-  <div class="cards" style="margin-top:15px;">
+<div class="card">
 
-    <div class="card user-card">
-      <div class="avatar">R</div>
-      <h3>Riya</h3>
-      <button onclick="alert('Friend request sent to Riya!')">
-        ➕ Add
-      </button>
-    </div>
+<h3>💰 Categories</h3>
 
-    <div class="card user-card">
-      <div class="avatar">P</div>
-      <h3>Pooja</h3>
-      <button onclick="alert('Friend request sent to Pooja!')">
-        ➕ Add
-      </button>
-    </div>
+<div class="stat">5</div>
 
-  </div>
+<p>Different fund categories</p>
+
 </div>
-</section>
 
-<!-- MUTUALS -->
-<section id="mutuals" class="hidden">
+</div>
+
 
 <div class="box">
 
-<h2>🤝 Mutual Friends</h2>
+<h2>Popular Funds</h2>
 
-<p style="margin-top:10px;">
-Pranali & Riya
-</p>
-
-<div class="mutual-count">
-2 Mutual Friends
-</div>
-
-<div class="mutual-person">
-👤 Neha
-</div>
-
-<div class="mutual-person">
-👤 Amit
-</div>
+<div id="homeFunds" class="cards" style="margin-top:15px;"></div>
 
 </div>
 
 </section>
 
+
+<!-- SEARCH -->
+
+<section id="search" class="hidden">
+
+<div class="box">
+
+<h2>🔎 Mutual Fund Search</h2>
+
+<input
+type="text"
+id="searchFund"
+placeholder="Search fund name or category..."
+oninput="searchFunds()"
+>
+
+<div id="searchResults" class="cards" style="margin-top:15px;"></div>
+
+</div>
+
+</section>
+
+
+<!-- FUND DETAILS -->
+
+<section id="details" class="hidden">
+
+<div class="box" id="fundDetails">
+
+</div>
+
+</section>
+
+
+<!-- COMPARE -->
+
+<section id="compare" class="hidden">
+
+<div class="box">
+
+<h2>⚖️ Fund Comparison</h2>
+
+<p style="margin-top:8px;">
+Select two funds to compare.
+</p>
+
+<select id="fund1"></select>
+
+<select id="fund2"></select>
+
+<button onclick="compareFunds()">
+Compare Funds
+</button>
+
+<div id="comparisonResult"></div>
+
+</div>
+
+</section>
+
+
+<!-- SIP -->
+
+<section id="sip" class="hidden">
+
+<div class="box">
+
+<h2>🧮 SIP Calculator</h2>
+
+<input
+type="number"
+id="sipAmount"
+placeholder="Monthly Investment ₹"
+>
+
+<input
+type="number"
+id="sipRate"
+placeholder="Expected Return %"
+>
+
+<input
+type="number"
+id="sipYears"
+placeholder="Investment Period (Years)"
+>
+
+<button onclick="calculateSIP()">
+Calculate SIP
+</button>
+
+<div id="sipResult" class="result hidden"></div>
+
+</div>
+
+</section>
+
+
+<!-- LUMPSUM -->
+
+<section id="lumpsum" class="hidden">
+
+<div class="box">
+
+<h2>💰 Lumpsum Calculator</h2>
+
+<input
+type="number"
+id="lumpAmount"
+placeholder="Investment Amount ₹"
+>
+
+<input
+type="number"
+id="lumpRate"
+placeholder="Expected Return %"
+>
+
+<input
+type="number"
+id="lumpYears"
+placeholder="Investment Period (Years)"
+>
+
+<button onclick="calculateLumpsum()">
+Calculate
+</button>
+
+<div id="lumpResult" class="result hidden"></div>
+
+</div>
+
+</section>
+
+
+<!-- RECOMMENDATION -->
+
+<section id="recommend" class="hidden">
+
+<div class="box">
+
+<h2>💡 Fund Recommendation</h2>
+
+<p style="margin:10px 0;">
+Select your risk preference.
+</p>
+
+<select id="riskLevel">
+
+<option value="">Select Risk Level</option>
+
+<option value="low">Low Risk</option>
+
+<option value="moderate">Moderate Risk</option>
+
+<option value="high">High Risk</option>
+
+</select>
+
+<button onclick="recommendFunds()">
+Show Recommendations
+</button>
+
+<div id="recommendResult" class="cards" style="margin-top:15px;"></div>
+
+</div>
+
+</section>
+
+
+<!-- ANALYTICS -->
+
+<section id="analytics" class="hidden">
+
+<div class="box">
+
+<h2>📊 Analytics Dashboard</h2>
+
+<div class="cards" style="margin-top:15px;">
+
+<div class="card">
+
+<h3>Total Funds</h3>
+
+<div class="big-number">8</div>
+
+</div>
+
+<div class="card">
+
+<h3>Highest Return</h3>
+
+<div class="big-number">18.5%</div>
+
+</div>
+
+<div class="card">
+
+<h3>Lowest Risk</h3>
+
+<div class="big-number">Low</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="box">
+
+<h2>Fund Category Analysis</h2>
+
+<table>
+
+<tr>
+<th>Category</th>
+<th>Funds</th>
+<th>Average Return</th>
+</tr>
+
+<tr>
+<td>Large Cap</td>
+<td>2</td>
+<td>13.8%</td>
+</tr>
+
+<tr>
+<td>Flexi Cap</td>
+<td>2</td>
+<td>15.2%</td>
+</tr>
+
+<tr>
+<td>Mid Cap</td>
+<td>2</td>
+<td>17.1%</td>
+</tr>
+
+<tr>
+<td>Debt</td>
+<td>1</td>
+<td>8.2%</td>
+</tr>
+
+<tr>
+<td>ELSS</td>
+<td>1</td>
+<td>14.5%</td>
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+
 <!-- PROFILE -->
+
 <section id="profile" class="hidden">
 
 <div class="box" style="text-align:center;">
 
-<div class="avatar" id="profileAvatar">P</div>
+<div class="avatar"
+style="width:70px;height:70px;border-radius:50%;background:#e4e0ff;color:#5b4bdb;display:flex;align-items:center;justify-content:center;margin:auto;font-size:28px;font-weight:bold;"
+id="profileAvatar">
+S
+</div>
 
-<h2 id="profileName">Sahil</h2>
+<h2 id="profileName" style="margin-top:12px;">
+Sahil
+</h2>
 
-<p id="profileEmail">sajil@example.com</p>
+<p id="profileEmail">
+sahil@mutuals.app
+</p>
 
 <p style="margin-top:15px;">
-🎓 Engineering
+🎓 College Project
 </p>
 
 </div>
 
 </section>
 
-</div>
 
 <footer>
+
 © 2026 Mutuals | College Project
+
 </footer>
+
+</div>
 
 </section>
 
+
 <script>
 
-const users = [
-  {
-    name: "Pranali",
-    friends: ["Sahil", "Neha", "Amit"]
-  },
-  {
-    name: "Riya",
-    friends: ["Neha", "Amit", "Pooja"]
-  },
-  {
-    name: "Sahil",
-    friends: ["Pranali", "Neha"]
-  },
-  {
-    name: "Neha",
-    friends: ["Pranali", "Riya", "Sahil"]
-  }
+/* SAMPLE FUND DATA */
+
+const funds = [
+
+{
+name:"HDFC Large Cap Fund",
+category:"Large Cap",
+nav:245.60,
+return3:13.8,
+risk:"Moderate",
+expense:1.05,
+aum:"₹32,500 Cr"
+},
+
+{
+name:"SBI Flexi Cap Fund",
+category:"Flexi Cap",
+nav:198.40,
+return3:15.2,
+risk:"Moderate",
+expense:0.92,
+aum:"₹28,700 Cr"
+},
+
+{
+name:"Parag Parikh Flexi Cap Fund",
+category:"Flexi Cap",
+nav:82.30,
+return3:18.5,
+risk:"High",
+expense:0.63,
+aum:"₹72,000 Cr"
+},
+
+{
+name:"Axis Midcap Fund",
+category:"Mid Cap",
+nav:105.20,
+return3:17.1,
+risk:"High",
+expense:1.10,
+aum:"₹25,300 Cr"
+},
+
+{
+name:"Kotak Emerging Equity Fund",
+category:"Mid Cap",
+nav:96.50,
+return3:16.4,
+risk:"High",
+expense:1.02,
+aum:"₹36,400 Cr"
+},
+
+{
+name:"HDFC Balanced Advantage Fund",
+category:"Hybrid",
+nav:512.20,
+return3:12.6,
+risk:"Moderate",
+expense:0.88,
+aum:"₹85,000 Cr"
+},
+
+{
+name:"SBI Short Duration Fund",
+category:"Debt",
+nav:34.80,
+return3:8.2,
+risk:"Low",
+expense:0.55,
+aum:"₹9,800 Cr"
+},
+
+{
+name:"Mirae Asset ELSS Tax Saver Fund",
+category:"ELSS",
+nav:41.20,
+return3:14.5,
+risk:"Moderate",
+expense:0.70,
+aum:"₹18,600 Cr"
+}
+
 ];
 
-function showSignup() {
-  document.getElementById("loginPage").classList.add("hidden");
-  document.getElementById("signupPage").classList.remove("hidden");
-}
 
-function showLogin() {
-  document.getElementById("signupPage").classList.add("hidden");
-  document.getElementById("loginPage").classList.remove("hidden");
-}
+/* LOGIN */
 
-function signup() {
+function showSignup(){
 
-  const name = document.getElementById("signupName").value;
-  const email = document.getElementById("signupEmail").value;
-  const password = document.getElementById("signupPassword").value;
+document.getElementById("loginPage")
+.classList.add("hidden");
 
-  if(name === "" || email === "" || password === "") {
-    alert("Please fill all fields.");
-    return;
-  }
-
-  alert("Account created successfully!");
-
-  document.getElementById("profileName").innerText = name;
-  document.getElementById("profileEmail").innerText = email;
-  document.getElementById("profileAvatar").innerText =
-    name.charAt(0).toUpperCase();
-
-  document.getElementById("signupPage").classList.add("hidden");
-  document.getElementById("appPage").classList.remove("hidden");
-}
-
-function login() {
-
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
-
-  if(email === "" || password === "") {
-    alert("Please enter email and password.");
-    return;
-  }
-
-  document.getElementById("loginPage").classList.add("hidden");
-  document.getElementById("appPage").classList.remove("hidden");
-}
-
-function logout() {
-
-  document.getElementById("appPage").classList.add("hidden");
-  document.getElementById("loginPage").classList.remove("hidden");
+document.getElementById("signupPage")
+.classList.remove("hidden");
 
 }
 
-function showSection(sectionName) {
 
-  const sections = ["home","friends","mutuals","profile"];
+function showLogin(){
 
-  sections.forEach(section => {
-    document.getElementById(section)
-      .classList.add("hidden");
-  });
+document.getElementById("signupPage")
+.classList.add("hidden");
 
-  document.getElementById(sectionName)
-    .classList.remove("hidden");
+document.getElementById("loginPage")
+.classList.remove("hidden");
+
 }
 
-function searchUser() {
 
-  const searchText =
-    document.getElementById("searchInput")
-    .value
-    .toLowerCase()
-    .trim();
+function signup(){
 
-  const results =
-    document.getElementById("searchResults");
+const name =
+document.getElementById("signupName").value;
 
-  results.innerHTML = "";
+const email =
+document.getElementById("signupEmail").value;
 
-  if(searchText === "") {
-    results.innerHTML =
-      "<p>Please enter a user name.</p>";
-    return;
-  }
+const password =
+document.getElementById("signupPassword").value;
 
-  const foundUsers = users.filter(user =>
-    user.name.toLowerCase().includes(searchText)
-  );
+if(name==="" || email==="" || password===""){
 
-  if(foundUsers.length === 0) {
-    results.innerHTML =
-      "<p>No user found.</p>";
-    return;
-  }
+alert("Please fill all fields.");
 
-  foundUsers.forEach(user => {
+return;
 
-    results.innerHTML += `
-      <div class="card user-card">
-
-        <div class="avatar">
-          ${user.name.charAt(0)}
-        </div>
-
-        <h3>${user.name}</h3>
-
-        <p>${user.friends.length} Friends</p>
-
-        <br>
-
-        <button onclick="viewMutuals('${user.name}')">
-          View Mutuals
-        </button>
-
-      </div>
-    `;
-
-  });
 }
 
-function viewMutuals(userName) {
+document.getElementById("profileName")
+.innerText=name;
 
-  showSection("mutuals");
+document.getElementById("profileEmail")
+.innerText=email;
 
-  const user1 = users.find(
-    user => user.name === "Pranali"
-  );
+document.getElementById("profileAvatar")
+.innerText=name.charAt(0).toUpperCase();
 
-  const user2 = users.find(
-    user => user.name === userName
-  );
+alert("Account created successfully!");
 
-  if(!user1 || !user2) return;
+document.getElementById("signupPage")
+.classList.add("hidden");
 
-  const mutualFriends =
-    user1.friends.filter(friend =>
-      user2.friends.includes(friend)
-    );
+document.getElementById("appPage")
+.classList.remove("hidden");
 
-  document.getElementById("mutuals").innerHTML = `
-
-    <div class="box">
-
-      <h2>🤝 Mutual Friends</h2>
-
-      <p style="margin-top:10px;">
-        Pranali & ${userName}
-      </p>
-
-      <div class="mutual-count">
-        ${mutualFriends.length} Mutual Friends
-      </div>
-
-      ${
-        mutualFriends.length > 0
-        ? mutualFriends.map(friend =>
-          `<div class="mutual-person">
-            👤 ${friend}
-          </div>`
-        ).join("")
-        : "<p>No mutual friends found.</p>"
-      }
-
-    </div>
-  `;
 }
+
+
+function login(){
+
+const email =
+document.getElementById("loginEmail").value;
+
+const password =
+document.getElementById("loginPassword").value;
+
+if(email==="" || password===""){
+
+alert("Please enter email and password.");
+
+return;
+
+}
+
+document.getElementById("loginPage")
+.classList.add("hidden");
+
+document.getElementById("appPage")
+.classList.remove("hidden");
+
+}
+
+
+/* NAVIGATION */
+
+function showSection(section){
+
+const sections=[
+"home",
+"search",
+"details",
+"compare",
+"sip",
+"lumpsum",
+"recommend",
+"analytics",
+"profile"
+];
+
+sections.forEach(id=>{
+
+document.getElementById(id)
+.classList.add("hidden");
+
+});
+
+document.getElementById(section)
+.classList.remove("hidden");
+
+}
+
+
+/* DISPLAY HOME FUNDS */
+
+function displayHomeFunds(){
+
+const container =
+document.getElementById("homeFunds");
+
+container.innerHTML="";
+
+funds.slice(0,4).forEach(fund=>{
+
+container.innerHTML+=`
+
+<div class="card">
+
+<div class="fund-name">
+${fund.name}
+</div>
+
+<span class="tag">
+${fund.category}
+</span>
+
+<span class="tag">
+${fund.risk}
+</span>
+
+<p style="margin-top:10px;">
+3Y Return: <b>${fund.return3}%</b>
+</p>
+
+<br>
+
+<button onclick="showFundDetails('${fund.name}')">
+View Details
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+/* SEARCH */
+
+function searchFunds(){
+
+const text =
+document.getElementById("searchFund")
+.value.toLowerCase();
+
+const results =
+document.getElementById("searchResults");
+
+results.innerHTML="";
+
+if(text===""){
+
+return;
+
+}
+
+const found =
+funds.filter(fund=>
+fund.name.toLowerCase().includes(text) ||
+fund.category.toLowerCase().includes(text)
+);
+
+if(found.length===0){
+
+results.innerHTML="<p>No fund found.</p>";
+
+return;
+
+}
+
+found.forEach(fund=>{
+
+results.innerHTML+=`
+
+<div class="card">
+
+<div class="fund-name">
+${fund.name}
+</div>
+
+<span class="tag">
+${fund.category}
+</span>
+
+<p style="margin-top:10px;">
+NAV: ₹${fund.nav}
+</p>
+
+<p>
+3Y Return: ${fund.return3}%
+</p>
+
+<br>
+
+<button onclick="showFundDetails('${fund.name}')">
+Fund Details
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+/* FUND DETAILS */
+
+function showFundDetails(name){
+
+const fund =
+funds.find(f=>f.name===name);
+
+showSection("details");
+
+document.getElementById("fundDetails")
+.innerHTML=`
+
+<h2>📄 Fund Details</h2>
+
+<h3 style="margin-top:15px;color:#5b4bdb;">
+${fund.name}
+</h3>
+
+<p style="margin-top:10px;">
+Category: <b>${fund.category}</b>
+</p>
+
+<p>
+NAV: <b>₹${fund.nav}</b>
+</p>
+
+<p>
+3 Year Return: <b>${fund.return3}%</b>
+</p>
+
+<p>
+Risk Level: <b>${fund.risk}</b>
+</p>
+
+<p>
+Expense Ratio: <b>${fund.expense}%</b>
+</p>
+
+<p>
+AUM: <b>${fund.aum}</b>
+</p>
+
+<br>
+
+<button onclick="showSection('compare')">
+Compare This Fund
+</button>
+
+`;
+
+}
+
+
+/* COMPARISON */
+
+function loadCompare(){
+
+const f1=document.getElementById("fund1");
+
+const f2=document.getElementById("fund2");
+
+funds.forEach(fund=>{
+
+f1.innerHTML+=`
+<option value="${fund.name}">
+${fund.name}
+</option>
+`;
+
+f2.innerHTML+=`
+<option value="${fund.name}">
+${fund.name}
+</option>
+`;
+
+});
+
+}
+
+
+function compareFunds(){
+
+const fund1 =
+funds.find(f=>
+f.name===document.getElementById("fund1").value
+);
+
+const fund2 =
+funds.find(f=>
+f.name===document.getElementById("fund2").value
+);
+
+document.getElementById("comparisonResult")
+.innerHTML=`
+
+<table>
+
+<tr>
+<th>Feature</th>
+<th>${fund1.name}</th>
+<th>${fund2.name}</th>
+</tr>
+
+<tr>
+<td>Category</td>
+<td>${fund1.category}</td>
+<td>${fund2.category}</td>
+</tr>
+
+<tr>
+<td>NAV</td>
+<td>₹${fund1.nav}</td>
+<td>₹${fund2.nav}</td>
+</tr>
+
+<tr>
+<td>3Y Return</td>
+<td>${fund1.return3}%</td>
+<td>${fund2.return3}%</td>
+</tr>
+
+<tr>
+<td>Risk</td>
+<td>${fund1.risk}</td>
+<td>${fund2.risk}</td>
+</tr>
+
+<tr>
+<td>Expense Ratio</td>
+<td>${fund1.expense}%</td>
+<td>${fund2.expense}%</td>
+</tr>
+
+</table>
+
+`;
+
+}
+
+
+/* SIP CALCULATOR */
+
+function calculateSIP(){
+
+const P =
+parseFloat(document.getElementById("sipAmount").value);
+
+const annualRate =
+parseFloat(document.getElementById("sipRate").value);
+
+const years =
+parseFloat(document.getElementById("sipYears").value);
+
+if(!P || !annualRate || !years){
+
+alert("Please enter all values.");
+
+return;
+
+}
+
+const r=annualRate/12/100;
+
+const n=years*12;
+
+const maturity=
+P*((Math.pow(1+r,n)-1)/r)*(1+r);
+
+const invested=P*n;
+
+const profit=maturity-invested;
+
+const result=
+document.getElementById("sipResult");
+
+result.classList.remove("hidden");
+
+result.innerHTML=`
+
+<h3>SIP Result</h3>
+
+<p>Invested Amount:
+<b>₹${invested.toFixed(0)}</b>
+</p>
+
+<p>Estimated Returns:
+<b>₹${profit.toFixed(0)}</b>
+</p>
+
+<p>Total Value:
+<b>₹${maturity.toFixed(0)}</b>
+</p>
+
+`;
+
+}
+
+
+/* LUMPSUM CALCULATOR */
+
+function calculateLumpsum(){
+
+const P =
+parseFloat(document.getElementById("lumpAmount").value);
+
+const rate =
+parseFloat(document.getElementById("lumpRate").value);
+
+const years =
+parseFloat(document.getElementById("lumpYears").value);
+
+if(!P || !rate || !years){
+
+alert("Please enter all values.");
+
+return;
+
+}
+
+const amount=
+P*Math.pow(1+rate/100,years);
+
+const profit=amount-P;
+
+const result=
+document.getElementById("lumpResult");
+
+result.classList.remove("hidden");
+
+result.innerHTML=`
+
+<h3>Lumpsum Result</h3>
+
+<p>Invested Amount:
+<b>₹${P.toFixed(0)}</b>
+</p>
+
+<p>Estimated Returns:
+<b>₹${profit.toFixed(0)}</b>
+</p>
+
+<p>Total Value:
+<b>₹${amount.toFixed(0)}</b>
+</p>
+
+`;
+
+}
+
+
+/* RECOMMENDATION */
+
+function recommendFunds(){
+
+const risk=
+document.getElementById("riskLevel").value;
+
+const result=
+document.getElementById("recommendResult");
+
+result.innerHTML="";
+
+if(!risk){
+
+alert("Please select risk level.");
+
+return;
+
+}
+
+const recommended=
+funds.filter(fund=>
+fund.risk.toLowerCase()===risk
+);
+
+recommended.forEach(fund=>{
+
+result.innerHTML+=`
+
+<div class="card">
+
+<h3>${fund.name}</h3>
+
+<p>Category:
+${fund.category}
+</p>
+
+<p>3Y Return:
+<b>${fund.return3}%</b>
+</p>
+
+<p>Risk:
+${fund.risk}
+</p>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+/* LOGOUT */
+
+function logout(){
+
+document.getElementById("appPage")
+.classList.add("hidden");
+
+document.getElementById("loginPage")
+.classList.remove("hidden");
+
+}
+
+
+/* START */
+
+displayHomeFunds();
+
+loadCompare();
 
 </script>
 
+</body>
+</html>
+
+
+
+ 
+
+
+
+  
+
+
+
+    
+    
+  
+
+
+
+
+
+
+  
+
+    
+
+
+
+
+
+
+
+   
+    
+ 
+    
+
+        
+  
+
+    
+
+   
 </body>
 </html>
